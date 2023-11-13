@@ -4,34 +4,34 @@
       <img class="logo-img" src="@/assets/huLogo1.jpg" alt="" />
     </div>
     <div>
-      <el-menu default-active="1" class="el-menu-vertical-demo" router>
-        <el-menu-item index="language">
+      <el-menu :default-active="getActiveMenu(route.path)" class="el-menu-vertical-demo" router>
+        <el-menu-item index="/language">
           <el-icon><Orange /></el-icon>
-          <template #title>{{ $t('menu.lang') }}</template>
+          <template #title>{{ $t('language') }}</template>
         </el-menu-item>
-        <el-menu-item index="category">
+        <el-menu-item index="/category">
           <el-icon><icon-menu /></el-icon>
-          <template #title>{{ $t('menu.category') }}</template>
+          <template #title>{{ $t('category') }}</template>
         </el-menu-item>
-        <el-menu-item index="platform">
+        <el-menu-item index="/platform">
           <el-icon><SwitchFilled /></el-icon>
-          <template #title>{{ $t('menu.platform') }}</template>
+          <template #title>{{ $t('platform') }}</template>
         </el-menu-item>
-        <el-menu-item index="invitation">
+        <el-menu-item index="/invitation">
           <el-icon><Key /></el-icon>
-          <template #title>{{ $t('menu.invitation') }}</template>
+          <template #title>{{ $t('invitation') }}</template>
         </el-menu-item>
-        <el-menu-item index="payment">
+        <el-menu-item index="/payment">
           <el-icon><Iphone /></el-icon>
-          <template #title>{{ $t('menu.payment') }}</template>
+          <template #title>{{ $t('payment') }}</template>
         </el-menu-item>
-        <el-menu-item index="withdraw">
+        <el-menu-item index="/withdraw">
           <el-icon><CreditCard /></el-icon>
-          <template #title>{{ $t('menu.withdraw') }}</template>
+          <template #title>{{ $t('withdraw') }}</template>
         </el-menu-item>
-        <el-menu-item index="setting">
+        <el-menu-item index="/setting">
           <el-icon><setting /></el-icon>
-          <template #title>{{ $t('menu.setting') }}</template>
+          <template #title>{{ $t('setting') }}</template>
         </el-menu-item>
       </el-menu>
     </div>
@@ -47,28 +47,11 @@ import {
   Iphone,
   Key
 } from '@element-plus/icons-vue'
-// import router from '../../../router'
-// function goLanguage() {
-//   router.push('/language')
-// }
-// function goCategory() {
-//   router.push('/category')
-// }
-// function goPlatform() {
-//   router.push('/platform')
-// }
-// function goInvitation() {
-//   router.push('/invitation')
-// }
-// function goPayment() {
-//   router.push('/payment')
-// }
-// function goWithdraw() {
-//   router.push('/withdraw')
-// }
-// function goSetting() {
-//   router.push('/setting')
-// }
+import {useRoute} from 'vue-router'
+const route = useRoute()
+const getActiveMenu = (path:string) => {
+  return path;
+}
 </script>
 <style lang="less">
 .el-menu-vertical-demo:not(.el-menu--collapse) {

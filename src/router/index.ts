@@ -3,21 +3,10 @@ import Layout from '@/views/Layout/index.vue'
 import Login from '@/views/Login/index.vue'
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: Layout,
     children: [
-      {
-        path: '/welcome',
-        name: 'Welcome',
-        component: () => import('@/views/Welcome/index.vue')
-      },
-      // test
-      {
-        path: '/welcome/next',
-        name: 'next',
-        component: () => import('@/views/Welcome/next.vue')
-      },
       {
         path: '/language',
         name: 'Language',
@@ -60,10 +49,6 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  {
-    path: '/',
-    redirect: '/login'
-  }
 ]
 
 const router = createRouter({

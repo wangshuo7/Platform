@@ -1,6 +1,6 @@
 <template>
   <div class="query">
-    <el-form :form="queryForm" label-width="80px" @submit.prevent inline>
+    <el-form :form="queryForm" label-width="80px" @submit.prevent :loading="loading" inline>
       <el-form-item :label="$t('table.title')">
         <el-input
           @keyup.enter="query"
@@ -104,6 +104,11 @@
   </el-dialog>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Category'
+}
+</script>
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
 import {
@@ -116,6 +121,7 @@ import Moment from 'moment'
 import HModel from '../../components/HModel/index.vue'
 import { ElMessage } from 'element-plus'
 import { categoryList } from '../../type/category'
+
 const queryForm = ref<any>({
   title: ''
 })

@@ -38,6 +38,11 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Setting'
+}
+</script>
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { getConfig, setConfig } from '../../api/setting'

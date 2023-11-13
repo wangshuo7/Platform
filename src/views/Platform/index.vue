@@ -31,6 +31,7 @@
         v-loading="loading"
         :data="tableData"
         style="width: 100%"
+        :loading="loading"
         border
       >
         <el-table-column label="ID">
@@ -104,6 +105,11 @@
   </el-dialog>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Platform'
+}
+</script>
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
 import {

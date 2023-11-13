@@ -19,6 +19,11 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'Invitation'
+}
+</script>
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { createCode } from '../../api/invitation'
