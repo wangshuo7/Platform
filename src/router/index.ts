@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/views/Layout/index.vue'
 import Login from '@/views/Login/index.vue'
+import { done, start } from '../utils/nprogress'
 const routes = [
   {
     path: '/',
@@ -48,14 +49,19 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
-  },
+  }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
 })
-
+router.beforeEach(async (_pre, _next) => {
+  start()
+})
+router.afterEach(() => {
+  done()
+})
 export function useRouter() {
   return router
 }
