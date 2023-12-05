@@ -9,15 +9,12 @@
 </template>
 
 <script lang="ts" setup>
-import { usePageCacheStore } from '../../../store/pageCache'; // 调整路径为实际路径
-import { computed, watch } from 'vue';
+import { usePageCacheStore } from '../../../store/pageCache' // 调整路径为实际路径
+import { computed } from 'vue'
 
-const store = usePageCacheStore();
+const store = usePageCacheStore()
 
-const getCachedPages = computed(() => store.getCachedPages);
-watch(getCachedPages,(newData)=> {
-  console.log(newData);
-})
+const getCachedPages = computed(() => store.getCachedPages)
 </script>
 
 <style lang="less" scoped></style>

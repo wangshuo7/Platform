@@ -32,8 +32,8 @@ request.interceptors.response.use(
     const { code, msg, data } = response.data
     if (code === 205) {
       // 未登录
-      ElMessage.error('未登录')
       router.push('/login')
+      ElMessage.error('未登录')
     } else if (code === 200) {
       //请求成功
       if (data.t) {

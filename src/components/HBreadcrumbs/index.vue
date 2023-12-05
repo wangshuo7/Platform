@@ -43,9 +43,8 @@ onMounted(() => {
   padding-left: 10px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid skyblue;
 }
 .el-breadcrumb {
-  font-size: 18px;
+  font-size: 15px;
 }
 </style>
