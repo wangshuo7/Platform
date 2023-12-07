@@ -87,8 +87,13 @@
     width="30%"
   >
     <div>
-      <el-form :model="form" label-width="80px">
-        <el-form-item :label="$t('table.title')">
+      <el-form
+        ref="ruleFormRef"
+        :rules="rules"
+        :model="form"
+        label-width="80px"
+      >
+        <el-form-item :label="$t('table.title')" prop="title">
           <el-input v-model="form.title" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.remark')">
@@ -115,7 +120,7 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, reactive } from 'vue'
 import {
   getPlatformList,
   addPlatform,
@@ -124,7 +129,7 @@ import {
 } from '../../api/platform'
 import Moment from 'moment'
 import HModel from '../../components/HModel/index.vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, FormInstance } from 'element-plus'
 import { platformList } from '../../type/platform'
 const queryForm = ref<any>({
   title: ''
@@ -134,6 +139,20 @@ const dialogVisible = ref<boolean>()
 const operation = ref<string>('') // 操作 add \ edit
 const editId = ref<number>() // 编辑时所用id
 const loading = ref<boolean>(false)
+// 验证相关
+const ruleFormRef = ref<FormInstance>()
+const rules = reactive<any>({
+  title: [
+    {
+      required: true,
+      message: '标题不能为空'
+    },
+    {
+      min: 2,
+      message: '标题至少两个字符'
+    }
+  ]
+})
 // 分页相关
 const currentPage = ref<number>(1) // 当前页
 const pageSize = ref<number>(10) // 每页显示条数
@@ -176,29 +195,35 @@ function editCate(row: platformList) {
 }
 // 弹出框确定
 async function confirmCate() {
-  if (operation.value == '添加') {
-    const res: any = await addPlatform({
-      title: form.value.title,
-      remark: form.value.remark
-    })
-    if (res.code === 200) {
-      ElMessage.success('添加成功')
-      dialogVisible.value = false
-      currentPage.value = 1
-      query()
+  ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      if (operation.value == '添加') {
+        const res: any = await addPlatform({
+          title: form.value.title,
+          remark: form.value.remark
+        })
+        if (res.code === 200) {
+          ElMessage.success('添加成功')
+          dialogVisible.value = false
+          currentPage.value = 1
+          query()
+        }
+      } else {
+        const res: any = await editPlatform({
+          id: editId.value,
+          title: form.value.title,
+          remark: form.value.remark
+        })
+        if (res.code === 200) {
+          ElMessage.success('编辑成功')
+          dialogVisible.value = false
+          query()
+        }
+      }
+    } else {
+      //
     }
-  } else {
-    const res: any = await editPlatform({
-      id: editId.value,
-      title: form.value.title,
-      remark: form.value.remark
-    })
-    if (res.code === 200) {
-      ElMessage.success('编辑成功')
-      dialogVisible.value = false
-      query()
-    }
-  }
+  })
 }
 // 删除
 async function delCate(row: platformList) {
@@ -233,6 +258,7 @@ watch(dialogVisible, () => {
     title: '',
     remark: ''
   }
+  ruleFormRef.value?.clearValidate('title')
 })
 // 获取列表
 onMounted(() => {

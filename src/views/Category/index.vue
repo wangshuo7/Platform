@@ -92,8 +92,13 @@
     width="30%"
   >
     <div>
-      <el-form :model="form" label-width="80px">
-        <el-form-item :label="$t('table.title')">
+      <el-form
+        :rules="rules"
+        ref="ruleFormRef"
+        :model="form"
+        label-width="80px"
+      >
+        <el-form-item prop="title" :label="$t('table.title')">
           <el-input v-model="form.title" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item :label="$t('table.remark')">
@@ -120,7 +125,7 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, reactive } from 'vue'
 import {
   getCategoryList,
   addCategory,
@@ -129,17 +134,31 @@ import {
 } from '../../api/category'
 import Moment from 'moment'
 import HModel from '../../components/HModel/index.vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, FormInstance } from 'element-plus'
 import { categoryList } from '../../type/category'
 
 const queryForm = ref<any>({
   title: ''
+})
+const ruleFormRef = ref<FormInstance>()
+const rules = reactive<any>({
+  title: [
+    {
+      required: true,
+      message: '标题不能为空'
+    },
+    {
+      min: 2,
+      message: '标题至少两个字符'
+    }
+  ]
 })
 const tableData = ref<categoryList[]>()
 const dialogVisible = ref<boolean>()
 const operation = ref<string>('') // 操作 add \ edit
 const editId = ref<number>() // 编辑时所用id
 const loading = ref<boolean>(false) // 表格加载
+
 // 分页相关
 const currentPage = ref<number>(1) // 当前页
 const pageSize = ref<number>(10) // 每页显示条数
@@ -181,30 +200,36 @@ function editCate(row: categoryList) {
   editId.value = row.game_cate_id
 }
 // 弹出框确定
-async function confirmCate() {
-  if (operation.value == '添加') {
-    const res: any = await addCategory({
-      title: form.value.title,
-      remark: form.value.remark
-    })
-    if (res.code === 200) {
-      ElMessage.success('添加成功')
-      dialogVisible.value = false
-      currentPage.value = 1
-      query()
+function confirmCate() {
+  ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      if (operation.value == '添加') {
+        const res: any = await addCategory({
+          title: form.value.title,
+          remark: form.value.remark
+        })
+        if (res.code === 200) {
+          ElMessage.success('添加成功')
+          dialogVisible.value = false
+          currentPage.value = 1
+          query()
+        }
+      } else {
+        const res: any = await editCategory({
+          id: editId.value,
+          title: form.value.title,
+          remark: form.value.remark
+        })
+        if (res.code === 200) {
+          dialogVisible.value = false
+          ElMessage.success('编辑成功')
+          query()
+        }
+      }
+    } else {
+      //
     }
-  } else {
-    const res: any = await editCategory({
-      id: editId.value,
-      title: form.value.title,
-      remark: form.value.remark
-    })
-    if (res.code === 200) {
-      ElMessage.success('编辑成功')
-      dialogVisible.value = false
-      query()
-    }
-  }
+  })
 }
 // 删除
 async function delCate(row: categoryList) {
@@ -239,6 +264,7 @@ watch(dialogVisible, () => {
     title: '',
     remark: ''
   }
+  ruleFormRef.value?.clearValidate('title')
 })
 // 获取列表
 onMounted(() => {
