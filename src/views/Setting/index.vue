@@ -1,41 +1,46 @@
 <template>
-  <div class="form-box">
-    <el-form :model="form" label-width="300px">
-      <el-form-item :label="$t('system.min_tx_price')">
-        <el-input v-model="form.min_tx_price" />
-      </el-form-item>
-      <el-form-item :label="$t('system.max_tx_price')">
-        <el-input v-model="form.max_tx_price" />
-      </el-form-item>
-      <el-form-item :label="$t('system.day')">
-        <el-input v-model="form.day" min="1" max="31" />
-      </el-form-item>
-      <el-form-item :label="$t('system.min_zz_price')">
-        <el-input v-model="form.min_zz_price" />
-      </el-form-item>
-      <el-form-item :label="$t('system.max_zz_price')">
-        <el-input v-model="form.max_zz_price" />
-      </el-form-item>
-      <el-form-item :label="$t('system.lw_choucheng')">
-        <el-input v-model="form.lw_choucheng" />
-      </el-form-item>
-      <el-form-item :label="$t('system.game_choucheng_pt')">
-        <el-input v-model="form.game_choucheng_pt" />
-      </el-form-item>
-      <el-form-item :label="$t('system.game_choucheng_gh')">
-        <el-input v-model="form.game_choucheng_gh" />
-      </el-form-item>
-      <el-form-item :label="$t('system.zhibo_deldou')">
-        <el-input v-model="form.zhibo_deldou" />
-      </el-form-item>
-      <el-form-item>
-        <el-button style="margin-right: 50px" type="primary" @click="onSave">{{
-          $t('button.save')
-        }}</el-button>
-        <el-button @click="onCancel">{{ $t('button.cancel') }}</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+  <session>
+    <div class="form-box">
+      <el-form :model="form" label-width="300px">
+        <el-form-item :label="$t('system.min_tx_price')">
+          <el-input v-model="form.min_tx_price" />
+        </el-form-item>
+        <el-form-item :label="$t('system.max_tx_price')">
+          <el-input v-model="form.max_tx_price" />
+        </el-form-item>
+        <el-form-item :label="$t('system.day')">
+          <el-input v-model="form.day" min="1" max="31" />
+        </el-form-item>
+        <el-form-item :label="$t('system.min_zz_price')">
+          <el-input v-model="form.min_zz_price" />
+        </el-form-item>
+        <el-form-item :label="$t('system.max_zz_price')">
+          <el-input v-model="form.max_zz_price" />
+        </el-form-item>
+        <el-form-item :label="$t('system.lw_choucheng')">
+          <el-input v-model="form.lw_choucheng" />
+        </el-form-item>
+        <el-form-item :label="$t('system.game_choucheng_pt')">
+          <el-input v-model="form.game_choucheng_pt" />
+        </el-form-item>
+        <el-form-item :label="$t('system.game_choucheng_gh')">
+          <el-input v-model="form.game_choucheng_gh" />
+        </el-form-item>
+        <el-form-item :label="$t('system.zhibo_deldou')">
+          <el-input v-model="form.zhibo_deldou" />
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            style="margin-right: 50px"
+            type="primary"
+            @click="onSave"
+            >{{ $t('button.save') }}</el-button
+          >
+          <el-button @click="onCancel">{{ $t('button.cancel') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </session>
 </template>
 
 <script lang="ts">

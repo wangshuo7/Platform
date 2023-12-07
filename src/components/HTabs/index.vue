@@ -11,7 +11,7 @@
         v-for="(tab, index) in tabs"
         :key="index"
         :name="tab.route"
-        closable
+        :closable="closable"
         class="tab-pane"
       >
         <template #label>
@@ -50,9 +50,8 @@ function handleTabClick(tab: any) {
 function closeTab(name: any) {
   const index = tabs.value.findIndex((tab: any) => tab.route === name)
   tabs.value.splice(index, 1)
-
   if (tabs.value.length === 0) {
-    router.push('/')
+    router.push('/home')
     pageCacheStore.removeCachedPage(name)
   } else if (activeTab.value === name) {
     // 判断是否关闭的是当前激活的标签
@@ -94,11 +93,19 @@ watch(
     // 正则判断newPath有几个'/'
     let path = (newPath.match(/\//g) || []).length
     // 监听路由变化，根据路由添加标签页
-    if (newPath === '/' || path >= 2) return
+    // if (newPath === '/' || path >= 2) return
+    if (path >= 2) return
     addTab(newPath, newPath)
   }
 )
-
+const closable = ref<boolean>(true)
+watch(
+  () => tabs.value.length,
+  (newLength) => {
+    // 当标签数量为1且该标签是首页时，禁用关闭功能
+    closable.value = !(newLength === 1 && tabs.value[0].route === '/home')
+  }
+)
 onBeforeUnmount(() => {
   // 在组件销毁时的清理工作
 })

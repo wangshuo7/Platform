@@ -1,61 +1,63 @@
 <template>
-  <HModel>
-    <template #head>
-      <span style="font-weight: bolder">{{ $t('menu.payment') }}</span>
-      <div>
-        <el-button type="primary" @click="onGenerate">{{
-          $t('button.generate')
-        }}</el-button>
-      </div>
-    </template>
-    <template #body>
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        style="width: 100%; height: 800px"
-        :loading="loading"
-        border
-      >
-        <el-table-column label="ID">
-          <template #default="{ row }">{{ row.id }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.price')">
-          <template #default="{ row }">{{ row.price }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.ctime')">
-          <template #default="{ row }">{{ formatTime(row.ctime) }}</template>
-        </el-table-column>
-        <el-table-column label="code">
-          <template #default="{ row }">{{ row.code }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.operate')">
-          <template #default="{ row }">
-            <el-button @click="setPrice(row)" type="success">{{
-              $t('button.set')
-            }}</el-button>
-            <el-button @click="delPaymentCard(row)" type="danger">{{
-              $t('button.del')
-            }}</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </template>
-    <template #foot>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total,prev, pager, next, sizes"
-          :current-page.sync="currentPage"
-          :page-size="pageSize"
-          :page-sizes="[10, 20, 30]"
-          :total="totalItems"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+  <session>
+    <HModel>
+      <template #head>
+        <span style="font-weight: bolder">{{ $t('menu.payment') }}</span>
+        <div>
+          <el-button type="primary" @click="onGenerate">{{
+            $t('button.generate')
+          }}</el-button>
+        </div>
+      </template>
+      <template #body>
+        <el-table
+          v-loading="loading"
+          :data="tableData"
+          style="width: 100%; height: 800px"
+          :loading="loading"
+          border
         >
-        </el-pagination>
-      </div>
-    </template>
-  </HModel>
+          <el-table-column label="ID">
+            <template #default="{ row }">{{ row.id }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.price')">
+            <template #default="{ row }">{{ row.price }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.ctime')">
+            <template #default="{ row }">{{ formatTime(row.ctime) }}</template>
+          </el-table-column>
+          <el-table-column label="code">
+            <template #default="{ row }">{{ row.code }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.operate')">
+            <template #default="{ row }">
+              <el-button @click="setPrice(row)" type="success">{{
+                $t('button.set')
+              }}</el-button>
+              <el-button @click="delPaymentCard(row)" type="danger">{{
+                $t('button.del')
+              }}</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+      <template #foot>
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="total,prev, pager, next, sizes"
+            :current-page.sync="currentPage"
+            :page-size="pageSize"
+            :page-sizes="[10, 20, 30]"
+            :total="totalItems"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
+        </div>
+      </template>
+    </HModel>
+  </session>
   <el-dialog
     v-model="dialogVisible"
     :title="operation === '生成' ? $t('button.generate') : $t('button.set')"

@@ -1,81 +1,91 @@
 <template>
-  <div class="query">
-    <el-form :form="queryForm" label-width="80px" @submit.prevent :loading="loading" inline>
-      <el-form-item :label="$t('table.title')">
-        <el-input
-          @keyup.enter="query"
-          v-model="queryForm.title"
-          clearable
-          placeholder="请输入标题"
-        ></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button style="margin: 0 20px" type="primary" @click="query">{{
-          $t('button.query')
-        }}</el-button>
-        <el-button @click="onClear">{{ $t('button.clear') }}</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
-  <HModel>
-    <template #head>
-      <span style="font-weight: bolder">{{ $t('menu.category') }}</span>
-      <div>
-        <el-button type="primary" @click="addLanguage">{{
-          $t('button.add')
-        }}</el-button>
-      </div>
-    </template>
-    <template #body>
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        style="width: 100%"
-        border
+  <session>
+    <div class="query">
+      <el-form
+        :form="queryForm"
+        label-width="50px"
+        @submit.prevent
+        :loading="loading"
+        inline
       >
-        <el-table-column label="ID">
-          <template #default="{ row }">{{ row.game_cate_id }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.title')">
-          <template #default="{ row }">{{ row.title }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.remark')">
-          <template #default="{ row }">{{ row.remark }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.ctime')">
-          <template #default="{ row }">{{ formatTime(row.ctime) }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.utime')">
-          <template #default="{ row }">{{ formatTime(row.uptime) }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.operate')">
-          <template #default="{ row }">
-            <el-button @click="editCate(row)" type="success">{{
-              $t('button.edit')
-            }}</el-button>
-            <el-button @click="delCate(row)" type="danger">{{
-              $t('button.del')
-            }}</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </template>
-    <template #foot>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total,prev, pager, next, sizes"
-          :current-page.sync="currentPage"
-          :page-size="pageSize"
-          :page-sizes="[10, 20, 30]"
-          :total="totalItems"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+        <el-form-item :label="$t('table.title')">
+          <el-input
+            @keyup.enter="query"
+            v-model="queryForm.title"
+            clearable
+            placeholder="请输入标题"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button style="margin: 0 20px" type="primary" @click="query">{{
+            $t('button.query')
+          }}</el-button>
+          <el-button @click="onClear">{{ $t('button.clear') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </session>
+  <session>
+    <HModel>
+      <template #head>
+        <span style="font-weight: bolder">{{ $t('menu.category') }}</span>
+        <div>
+          <el-button type="primary" @click="addLanguage">{{
+            $t('button.add')
+          }}</el-button>
+        </div>
+      </template>
+      <template #body>
+        <el-table
+          v-loading="loading"
+          :data="tableData"
+          style="width: 100%"
+          border
         >
-        </el-pagination>
-      </div>
-    </template>
-  </HModel>
+          <el-table-column label="ID">
+            <template #default="{ row }">{{ row.game_cate_id }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.title')">
+            <template #default="{ row }">{{ row.title }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.remark')">
+            <template #default="{ row }">{{ row.remark }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.ctime')">
+            <template #default="{ row }">{{ formatTime(row.ctime) }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.utime')">
+            <template #default="{ row }">{{ formatTime(row.uptime) }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.operate')">
+            <template #default="{ row }">
+              <el-button @click="editCate(row)" type="success">{{
+                $t('button.edit')
+              }}</el-button>
+              <el-button @click="delCate(row)" type="danger">{{
+                $t('button.del')
+              }}</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+      <template #foot>
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="total,prev, pager, next, sizes"
+            :current-page.sync="currentPage"
+            :page-size="pageSize"
+            :page-sizes="[10, 20, 30]"
+            :total="totalItems"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
+        </div>
+      </template>
+    </HModel>
+  </session>
   <el-dialog
     v-model="dialogVisible"
     :title="operation === '添加' ? $t('button.add') : $t('button.edit')"
@@ -256,7 +266,6 @@ function formatTime(time: number) {
   align-items: center;
 }
 .query {
-  margin-top: 40px;
   .el-input {
     width: 250px;
   }

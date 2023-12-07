@@ -13,6 +13,10 @@
           :collapse="isCollapse"
           router
         >
+          <el-menu-item index="/home">
+            <el-icon><Monitor /></el-icon>
+            <template #title>{{ $t('home') }}</template>
+          </el-menu-item>
           <el-menu-item index="/language">
             <el-icon><Orange /></el-icon>
             <template #title>{{ $t('language') }}</template>
@@ -55,7 +59,8 @@ import {
   Setting,
   CreditCard,
   Iphone,
-  Key
+  Key,
+  Monitor
 } from '@element-plus/icons-vue'
 import { useRoute } from 'vue-router'
 import { useCollapseStore } from '../../../store/collapse'
@@ -72,7 +77,7 @@ const isCollapse = computed(() => collapseStore.collapse)
   background-color: #191a23 !important;
   border: none !important;
   .el-menu-item:hover {
-    background-color: #1c2434;
+    background-color: #1c2f55;
   }
 }
 .left {
@@ -103,5 +108,10 @@ const isCollapse = computed(() => collapseStore.collapse)
 
 :deep(.el-menu) {
   border: none;
+}
+.el-menu-item.is-active {
+  background: #1c2f55;
+  // border-radius: 10px;
+  // margin: 0px 10px;
 }
 </style>

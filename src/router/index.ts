@@ -5,9 +5,15 @@ import { done, start } from '../utils/nprogress'
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Layout',
+    redirect: '/home',
     component: Layout,
     children: [
+      {
+        path: '/home',
+        name: 'Home',
+        component: () => import('@/views/Home/index.vue')
+      },
       {
         path: '/language',
         name: 'Language',

@@ -1,78 +1,82 @@
 <template>
-  <HModel>
-    <template #head>
-      <span style="font-weight: bolder">{{ $t('menu.withdraw') }}</span>
-    </template>
-    <template #body>
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        style="width: 100%"
-        :loading="loading"
-        border
-      >
-        <el-table-column label="ID">
-          <template #default="{ row }">{{ row.id }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.source')">
-          <template #default="{ row }">{{
-            row.table === 'user_zhubo' ? $t('table.anchor') : $t('table.guild')
-          }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.nickname')">
-          <template #default="{ row }">{{ row.tx_username }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.phoneNumber')">
-          <template #default="{ row }">{{ row.tx_mobile }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.withdrawalAccount')">
-          <template #default="{ row }">{{ row.tx_card }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.price')">
-          <template #default="{ row }">{{ row.price }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.status')">
-          <template #default="{ row }">{{
-            row.status == 1
-              ? $t('table.audit')
-              : row.status == 2
-              ? $t('table.pass')
-              : $t('table.refuse')
-          }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.remark')">
-          <template #default="{ row }">{{ row.remark }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.ctime')">
-          <template #default="{ row }">{{ formatTime(row.ctime) }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('table.operate')">
-          <template #default="{ row }">
-            <el-button
-              v-if="row.status == 1"
-              @click="auditPrice(row)"
-              type="success"
-              >{{ $t('button.examine') }}</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </template>
-    <template #foot>
-      <div class="pagination">
-        <el-pagination
-          background
-          layout="total,prev, pager, next"
-          :current-page.sync="currentPage"
-          :page-size="pageSize"
-          :total="totalItems"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+  <session>
+    <HModel>
+      <template #head>
+        <span style="font-weight: bolder">{{ $t('menu.withdraw') }}</span>
+      </template>
+      <template #body>
+        <el-table
+          v-loading="loading"
+          :data="tableData"
+          style="width: 100%"
+          :loading="loading"
+          border
         >
-        </el-pagination>
-      </div>
-    </template>
-  </HModel>
+          <el-table-column label="ID">
+            <template #default="{ row }">{{ row.id }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.source')">
+            <template #default="{ row }">{{
+              row.table === 'user_zhubo'
+                ? $t('table.anchor')
+                : $t('table.guild')
+            }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.nickname')">
+            <template #default="{ row }">{{ row.tx_username }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.phoneNumber')">
+            <template #default="{ row }">{{ row.tx_mobile }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.withdrawalAccount')">
+            <template #default="{ row }">{{ row.tx_card }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.price')">
+            <template #default="{ row }">{{ row.price }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.status')">
+            <template #default="{ row }">{{
+              row.status == 1
+                ? $t('table.audit')
+                : row.status == 2
+                ? $t('table.pass')
+                : $t('table.refuse')
+            }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.remark')">
+            <template #default="{ row }">{{ row.remark }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.ctime')">
+            <template #default="{ row }">{{ formatTime(row.ctime) }}</template>
+          </el-table-column>
+          <el-table-column :label="$t('table.operate')">
+            <template #default="{ row }">
+              <el-button
+                v-if="row.status == 1"
+                @click="auditPrice(row)"
+                type="success"
+                >{{ $t('button.examine') }}</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+      <template #foot>
+        <div class="pagination">
+          <el-pagination
+            background
+            layout="total,prev, pager, next"
+            :current-page.sync="currentPage"
+            :page-size="pageSize"
+            :total="totalItems"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
+        </div>
+      </template>
+    </HModel>
+  </session>
   <el-dialog v-model="dialogVisible" :title="$t('table.examine')" width="30%">
     <div>
       <el-form :model="form" label-width="80px">
