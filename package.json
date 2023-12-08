@@ -19,8 +19,7 @@
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
     "vue-i18n": "^9.6.2",
-    "vue-router": "^4.2.5",
-    "vue3-clipboard": "^1.0.0"
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.14",

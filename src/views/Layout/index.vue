@@ -9,7 +9,7 @@
       </el-header>
       <el-main>
         <el-scrollbar>
-          <Content></Content>
+          <Content :key="contentKey"></Content>
         </el-scrollbar>
       </el-main>
     </el-container>
@@ -23,10 +23,14 @@ import Header from './components/Header.vue'
 // import { useRoute } from 'vue-router'
 import { useCollapseStore } from '../../store/collapse'
 import { computed } from 'vue'
+
 const collapseStore = useCollapseStore()
 const isCollapse = computed(() => collapseStore.collapse)
 
 // const route = useRoute()
+import { useReloadStore } from '../../store/reload'
+const reloadStore = useReloadStore()
+const contentKey = computed(() => reloadStore.contentKey)
 </script>
 
 <style lang="less" scoped>
