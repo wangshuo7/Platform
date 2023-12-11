@@ -31,6 +31,7 @@
           </el-table-column>
           <el-table-column :label="$t('table.operate')">
             <template #default="{ row }">
+              <el-button @click="copyCode(row.code)">复制</el-button>
               <el-button @click="setPrice(row)" type="success">{{
                 $t('button.set')
               }}</el-button>
@@ -194,7 +195,18 @@ async function query() {
     console.error('Error fetching data: ', error)
   }
 }
-
+const copyCode = (text: string) => {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      // 复制成功的处理逻辑
+      ElMessage.success('复制成功')
+    })
+    .catch((error) => {
+      // 复制失败的处理逻辑
+      ElMessage.error('复制失败', error)
+    })
+}
 watch(dialogVisible, () => {
   form.value = {
     price: '',
