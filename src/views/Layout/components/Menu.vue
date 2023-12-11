@@ -83,7 +83,6 @@ const isCollapse = computed(() => collapseStore.collapse)
 .left {
   width: 100%;
   height: 100%;
-  // border-right: 2px solid #dcdfe6;
   background-color: #191a23 !important;
   display: flex;
   flex-direction: column;
@@ -92,16 +91,16 @@ const isCollapse = computed(() => collapseStore.collapse)
     display: flex;
     align-items: center;
     padding: 0 20px;
-    justify-content: space-around;
-    // border-bottom: 1px solid skyblue;
+    justify-content: center;
     .logo-img {
       display: block;
-      height: 100%;
+      height: 60%;
       border-radius: 50%;
     }
     .logo-title {
       color: #fff;
       font-size: 20px;
+      margin-left: 10px;
     }
   }
 }
