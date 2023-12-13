@@ -73,6 +73,14 @@ const i18n = createI18n({
         add: 'Add successfully',
         set: 'Setting successfully',
         del: 'Delete successfully'
+      },
+      contextmenu: {
+        reload: 'Reload',
+        close: 'Close',
+        closeOther: 'Close Others',
+        closeRight: 'Close to the Right',
+        closeLeft: 'Close to the Left',
+        closeAll: 'Close All'
       }
     },
     zh: {
@@ -144,6 +152,14 @@ const i18n = createI18n({
         add: '添加成功',
         set: '设置成功',
         del: '删除成功'
+      },
+      contextmenu: {
+        reload: '重新加载',
+        close: '关闭',
+        closeOther: '关闭其他',
+        closeRight: '关闭右侧',
+        closeLeft: '关闭左侧',
+        closeAll: '全部关闭'
       }
     },
     tw: {
@@ -215,6 +231,14 @@ const i18n = createI18n({
         add: '添加成功',
         set: '設置成功',
         del: '刪除成功'
+      },
+      contextmenu: {
+        reload: '重新加載',
+        close: '關閉',
+        closeOther: '關閉其他',
+        closeRight: '關閉右側',
+        closeLeft: '關閉左側',
+        closeAll: '全部關閉'
       }
     }
     // 添加更多语言翻译
