@@ -99,7 +99,7 @@ const copyCode = (text: string) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--el-border-color-light);
   padding: 0 10px;
   height: 30px;
   color: rgb(99, 98, 98);
@@ -107,7 +107,7 @@ const copyCode = (text: string) => {
 }
 .code-table {
   width: 550px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--el-border-color-light);
   min-height: 60px;
   margin-right: 30px;
 }
@@ -115,7 +115,7 @@ const copyCode = (text: string) => {
   padding-left: 10px;
   height: 30px;
   line-height: 30px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--el-border-color-light);
   color: gray;
 }
 </style>
